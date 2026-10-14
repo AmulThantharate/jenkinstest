@@ -9,10 +9,10 @@ pipeline {
         }
         stage("System Memory"){
             steps {
-                scripts{
-                    def meminfo = sh(script: 'free -m', retruststdout: true).trim()
-                    echo "Memory Info:\n${meminfo}"
-                }
+                script{
+                 def freeMem = sh(script: 'free -m | awk \'/MemFree:/ {print $2}\'', returnStdout: true).trim()
+                    echo "Free Memory: ${freeMem} MB"                    
+		}
             }
         }
     }
