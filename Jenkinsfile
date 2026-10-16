@@ -19,8 +19,20 @@ pipeline {
             }
         }
         stage("System Information"){
-            def hostname = sh(script: 'hostname', returnStdout: true).trim()
-            echo "Hostname: ${hostname}"
+            steps {
+                script {
+                    def hostname = sh(script: 'hostname', returnStdout: true).trim()
+                    echo "Hostname: ${hostname}"
+                }
+            }
+        }
+        stage("Custom Variable"){
+            steps{
+                script {
+                    env.JENKINS_CUSTOM = "Hello Jenkins"
+                }
+                sh "echo ${env.JENKINS_CUSTOM}"
+            }
         }
     }
 }
