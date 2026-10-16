@@ -18,5 +18,9 @@ pipeline {
             }
             }
         }
+        stage("System Information"){
+            def hostname = sh(script: 'hostname', returnStdout: true).trim()
+            echo "Hostname: ${hostname}"
+        }
     }
 }
