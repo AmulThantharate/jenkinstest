@@ -7,12 +7,13 @@ pipeline {
                 echo 'Hello, World!'
             }
         }
-        stage("System Memory"){
-            steps {
-                script{
-                 def freeMem = sh(script: 'free -m | awk \'/MemFree:/ {print $2}\'', returnStdout: true).trim()
-                    echo "Free Memory: ${freeMem} MB"                    
-		}
+	    stage("Print Hostname"){
+	        steps{
+                if (isUnix()) {
+                    sh "hostname"
+                } else {
+                    bat "hostname"
+                }
             }
         }
     }
