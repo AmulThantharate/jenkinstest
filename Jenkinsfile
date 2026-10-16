@@ -9,11 +9,13 @@ pipeline {
         }
 	    stage("Print Hostname"){
 	        steps{
+                script {
                 if (isUnix()) {
                     sh "hostname"
                 } else {
                     bat "hostname"
                 }
+            }
             }
         }
     }
