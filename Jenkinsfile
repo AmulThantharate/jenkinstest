@@ -34,5 +34,28 @@ pipeline {
                 sh "echo ${env.JENKINS_CUSTOM}"
             }
         }
+        stage("Tree Package Install"){
+            steps{
+                script{
+                    sh """
+                    if command -v tree >/dev/null 2>&1; then
+                        echo "Package tree is already installed"
+                    else
+                        echo "Installing Package tree"
+                        sudo apt-get update -y
+                        sudo apt-get install tree -y
+                    fi
+                    """
+                }
+            }
+        }
+        stage("Verify Tree Installation"){
+            steps{
+                script{
+                    def treeVersion = sh(script: 'tree --version', returnStdout: true).trim()
+                    echo "Tree Version: ${treeVersion}"
+                }
+            }
+        }
     }
 }
